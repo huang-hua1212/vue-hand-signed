@@ -85,8 +85,8 @@ export default {
     },
 
     setCanvasZoom() {
-      const canvasWidth = this.canvasOriginal.width * 1.3;
-      const canvasHeight = this.canvasOriginal.height * 1.5;
+      const canvasWidth = this.canvasOriginal.width * 1;
+      const canvasHeight = this.canvasOriginal.height * 1;
 
       this.canvas.setWidth(canvasWidth);
       this.canvas.setHeight(canvasHeight);

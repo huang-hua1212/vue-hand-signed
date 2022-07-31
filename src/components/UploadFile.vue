@@ -9,7 +9,7 @@
         <input accept=".pdf" type="file" @change='handleUploadPdf' />
       </div>
 
-      <canvas id='canvas1' width='this.style.width' height='this.style.height'></canvas>
+      <canvas id='canvas1' :width='this.style.width' :height='this.style.height'></canvas>
       <div>
         <button @click='handleConvertToImage'>輸出</button>
       </div>
@@ -31,23 +31,28 @@ export default {
   },
   props: ['style'],
   mounted() {
-    pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdn.bootcss.com/pdf.js/2.14.305/pdf.worker.js';
+    // pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdn.bootcss.com/pdf.js/2.14.305/pdf.worker.js';
+    pdfjs.GlobalWorkerOptions.workerSrc = './pdf.worker.js';
     this.canvas = document.getElementById('canvas1');
     this.ctx = this.canvas.getContext('2d');
   },
   methods: {
-    handleUploadImage(event) {
+    async handleUploadImage(event) {
       const f = event.target.files[0];
       // const { ctx } = this;
       const img = new Image();
       img.onload = () => {
         const scaled = mouseEvent.getScaledDim(img, this.style.width, this.style.height);
+        console.log(scaled.width);
+        console.log(scaled.height);
         // scale canvas to image
         this.ctx.width = scaled.width;
         this.ctx.height = scaled.height;
         // draw image
         this.ctx.drawImage(img, 0, 0, this.ctx.width, this.ctx.height);
+        // this.ctx.drawImage(img, 0, 0, img.width * 0.7, img.height * 0.7);
       };
+      img.src = await URL.createObjectURL(f);
       this.src = URL.createObjectURL(f);
     },
 
@@ -58,13 +63,16 @@ export default {
         const fileReader = new FileReader();
         fileReader.onload = (e) => {
           const pdfData = new Uint8Array(e.target.result);
+          console.log(pdfData);
           // Using DocumentInitParameters object to load binary data.
           const loadingTask = pdfjs.getDocument({ data: pdfData });
           loadingTask.promise.then(
             (pdf) => {
+              console.log(pdf);
               // Fetch the first page
               const pageNumber = 1;
               pdf.getPage(pageNumber).then((page) => {
+                // const scale = 1.5;
                 const scale = 1.5;
                 const viewport = page.getViewport({ scale });
 
@@ -77,6 +85,7 @@ export default {
                   viewport,
                 };
                 const renderTask = page.render(renderContext);
+                console.log(renderContext);
                 renderTask.promise.then(() => {
                   console.log('Page rendered');
                 });
