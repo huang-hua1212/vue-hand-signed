@@ -48,6 +48,9 @@ export default {
 };
 </script>
 <style>
+/* Maximum resolution */
+@media (-webkit-max-device-pixel-ratio: 3) {
+}
 .canvas {
   display: flex;
   justify-content: center;

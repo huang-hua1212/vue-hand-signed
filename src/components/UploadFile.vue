@@ -81,8 +81,8 @@ export default {
               // Fetch the first page
               const pageNumber = this.pageNum;
               pdf.getPage(pageNumber).then((page) => {
-                // const scale = 1.5;
-                const scale = 0.6;
+                const scale = 1.5; // 影響pdf的畫質
+                // const scale = 0.6;
                 const viewport = page.getViewport({ scale });
 
                 // Prepare canvas using PDF page dimensions
@@ -120,8 +120,8 @@ export default {
             // Fetch the first page
             const pageNumber = this.pageNum;
             pdf.getPage(pageNumber).then((page) => {
-              // const scale = 1.5;
-              const scale = 0.6;
+              const scale = 1.5; // 影響pdf的畫質
+              // const scale = 0.6;
               const viewport = page.getViewport({ scale });
 
               // Prepare canvas using PDF page dimensions
