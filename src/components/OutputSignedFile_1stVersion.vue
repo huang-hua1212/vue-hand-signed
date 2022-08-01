@@ -26,7 +26,9 @@ export default {
   },
   props: ['signData', 'pdfSrc'],
   mounted() {
+    // this.canvas = document.getElementById('canvasOutput');
     const c = new fabric.Canvas(this.$refs.canvas);
+    // const c = new fabric.Canvas(document.getElementById('canvasOutput'));
     this.canvas = c;
   },
   watch: {
@@ -35,8 +37,6 @@ export default {
         fabric.Image.fromURL(this.signData, (img) => {
           img.scaleToWidth(100);
           img.scaleToHeight(100);
-          // img.scaleToWidth(80);
-          // img.scaleToHeight(80);
           this.canvas.calcOffset();
           toRaw(this.canvas).add(img).renderAll();
         });
@@ -89,8 +89,8 @@ export default {
     setCanvasZoom() {
       // const canvasWidth = this.canvasOriginal.width * 1;
       // const canvasHeight = this.canvasOriginal.height * 1;
-      const canvasWidth = this.canvasOriginal.width * 0.46;
-      const canvasHeight = this.canvasOriginal.height * 0.58;
+      const canvasWidth = this.canvasOriginal.width * 1.3;
+      const canvasHeight = this.canvasOriginal.height * 1.7;
 
       this.canvas.setWidth(canvasWidth);
       this.canvas.setHeight(canvasHeight);
@@ -142,6 +142,11 @@ export default {
   flex-direction: column;
   align-items: center;
 }
+// const Wrapper = styled("div")`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// `;
 .main {
   position: relative;
   height: auto;
@@ -151,6 +156,15 @@ export default {
   align-items: center;
   justify-content: center;
 }
+// const Main = styled("div")`
+//   position: relative;
+//   height: auto;
+//   width: 100%;
+//   display: flex;
+//   margin: 20px auto;
+//   align-items: center;
+//   justify-content: center;
+// `;
 
 #canvasOutput {
   position: absolute;
@@ -163,6 +177,21 @@ export default {
 
   &.bg {
     z-index: 2;
+    /* background: #eee; */
   }
 }
+// const Canvas = styled("canvas")`
+//   position: absolute;
+//   left: 0;
+//   right: 0;
+
+//   &.sign {
+//     z-index: 3;
+//   }
+
+//   &.bg {
+//     z-index: 2;
+//     /* background: #eee; */
+//   }
+// `;
 </style>

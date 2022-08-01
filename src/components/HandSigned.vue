@@ -3,7 +3,8 @@
     <div>
       <canvas
         id="canvas"
-        style="background: #eee; -webkit-transform: translate3d(0, 0, 0); object-fit: cover"
+        style="background: #eee; -webkit-transform: translate3d(0, 0, 0);
+        object-fit: cover;"
         :width="style.width"
         :height="style.height"
         @touchstart.prevent="handleTouchStart"

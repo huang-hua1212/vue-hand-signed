@@ -16,8 +16,7 @@
   <span>Page: <span id="page_num">{{pageNum}}
     </span> / <span id="page_count">{{totalPages}}</span></span>
 </div>
-      <canvas id='canvas1' style = 'object-fit: cover;'
-      :width='this.style.width' :height='this.style.height'></canvas>
+      <canvas id='canvas1' :width='this.style.width' :height='this.style.height'></canvas>
       <div>
         <button @click='handleConvertToImage'>輸出</button>
       </div>
@@ -82,7 +81,7 @@ export default {
               const pageNumber = this.pageNum;
               pdf.getPage(pageNumber).then((page) => {
                 // const scale = 1.5;
-                const scale = 0.6;
+                const scale = 1.5;
                 const viewport = page.getViewport({ scale });
 
                 // Prepare canvas using PDF page dimensions
@@ -121,7 +120,7 @@ export default {
             const pageNumber = this.pageNum;
             pdf.getPage(pageNumber).then((page) => {
               // const scale = 1.5;
-              const scale = 0.6;
+              const scale = 1.5;
               const viewport = page.getViewport({ scale });
 
               // Prepare canvas using PDF page dimensions
